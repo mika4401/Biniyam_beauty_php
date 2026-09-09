@@ -1,0 +1,36 @@
+# ============================================
+# Biniyam Beauty Academy — PHP Backend
+# ============================================
+
+# ── Environment / Secrets ──
+.env
+.env.*
+!.env.example
+
+# ── Dependencies ──
+vendor/
+composer.lock
+
+# ── IDE / Editor ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── OS ──
+.DS_Store
+Desktop.ini
+*.log
+
+# ── Uploads (user-generated content) ──
+uploads/
+
+# ── Documentation (local only, not in production) ──
+docs/
+
+# ── Deployment artifacts ──
+*.tar.gz
+*.zip
