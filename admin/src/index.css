@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #C8A044;
+  --color-charcoal: #222222;
+  --color-muted: #6B7280;
+  --color-surface: #FAFAFA;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --font-display: 'Playfair Display', 'Noto Sans Ethiopic', serif;
+  --font-body: 'Inter', 'Noto Sans Ethiopic', sans-serif;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #FAFAFA; color: #222222; font-family: 'Inter', 'Noto Sans Ethiopic', sans-serif; }
+  button { font: inherit; }
+}

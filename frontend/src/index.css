@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import "tailwindcss";
+
+/* Class-based dark mode: the `.dark` class on <html> enables dark: variants */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ──────────────────────────────────────────────
+   Theme tokens (light)
+   The flippable tokens reference CSS variables so
+   `.dark` can swap them without touching markup.
+   ────────────────────────────────────────────── */
+:root {
+  --page: #FFFFFF;      /* body background            */
+  --surface: #FAFAFA;   /* section backgrounds        */
+  --card: #FFFFFF;      /* cards, navbar, inputs      */
+  --ink: #222222;       /* primary text (charcoal)    */
+  --muted: #6B7280;     /* secondary text             */
+}
+
+.dark {
+  --page: #0B0D10;
+  --surface: #12151B;
+  --card: #1A1E26;
+  --ink: #EDEEF0;
+  --muted: #9AA3AF;
+}
+
+/* Printing should always use dark-on-light ink, regardless of theme */
+@media print {
+  html, html.dark {
+    --page: #FFFFFF;
+    --surface: #FFFFFF;
+    --card: #FFFFFF;
+    --ink: #222222;
+    --muted: #6B7280;
+  }
+}
+
+@theme inline {
+  --color-gold: #C8A044;
+  --color-charcoal: var(--ink);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-ink: #222222; /* always-dark (hero/CTA backgrounds) */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --font-display: 'Playfair Display', 'Noto Sans Ethiopic', serif;
+  --font-body: 'Inter', 'Noto Sans Ethiopic', sans-serif;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--page); color: var(--ink); font-family: 'Inter', 'Noto Sans Ethiopic', sans-serif; }
+  button, input, select, textarea { font: inherit; }
+}
