@@ -29,11 +29,14 @@ header('Content-Type: application/json; charset=utf-8');
 // Allow only known origins — production domains + localhost for local development
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $allowedOriginPatterns = [
-    // Production (Ethio Telecom hosting)
-    '#^https://biniyambeautytraining\.com\.et$#',
-    '#^https://www\.biniyambeautytraining\.com\.et$#',
-    '#^https://admin\.biniyambeautytraining\.com\.et$#',
-    // Local development (Vite dev servers)
+        'http://www.biniyambeautytraining.com.et',
+        'http://biniyambeautytraining.com.et',
+        'http://admin.biniyambeautytraining.com.et',
+
+        'https://www.biniyambeautytraining.com.et',
+        'https://biniyambeautytraining.com.et',
+        'https://admin.biniyambeautytraining.com.et',
+
     '#^https?://(localhost|127\.0\.0\.1|\[::1\]):(5173|5174)$#',
 ];
 foreach ($allowedOriginPatterns as $pattern) {
