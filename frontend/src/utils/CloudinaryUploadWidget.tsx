@@ -41,7 +41,7 @@ interface CloudinaryConfig {
   uploadPreset: string
 }
 
-const API_BASE = 'http://localhost/Biniyam_PHP/api/v1'
+const API_BASE = 'https://api.biniyambeautytraining.com.et/api/v1'
 
 /**
  * Fetches Cloudinary configuration from the backend.

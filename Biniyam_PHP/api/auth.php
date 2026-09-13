@@ -159,7 +159,7 @@ function authRefresh(): void {
         'expires'  => time() + $jwtConfig['refresh_expiry'],
         'path'     => '/api/v1/auth/refresh',
         'httponly'  => true,
-        'secure'   => false,
+        'secure'   => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
         'samesite' => 'Lax',
     ]);
 
@@ -231,7 +231,7 @@ function authChangePassword(): void {
         'expires'  => time() + $jwtConfig['refresh_expiry'],
         'path'     => '/api/v1/auth/refresh',
         'httponly'  => true,
-        'secure'   => false,
+        'secure'   => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
         'samesite' => 'Lax',
     ]);
 

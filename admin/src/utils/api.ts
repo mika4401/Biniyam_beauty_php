@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost/Biniyam_PHP/api/v1'
+export const API_BASE = 'https://api.biniyambeautytraining.com.et/api/v1'
 
 // ──────────────────────────────────────────────
 //  Token management

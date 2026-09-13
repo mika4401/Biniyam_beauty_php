@@ -3,7 +3,7 @@ import type { FormEvent } from 'react'
 import { Check, CreditCard, Loader, UserPlus, Banknote } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../i18n/LanguageContext'
-import { fetchPrograms, adminCreateRegistration, recordSecondPayment } from '../utils/api'
+import { fetchPrograms, adminCreateRegistration, recordSecondPayment, API_BASE } from '../utils/api'
 import type { Program } from '../types/api'
 import { EDU_LEVELS, SCHEDULE_OPTIONS } from '../constants'
 
@@ -101,41 +101,11 @@ export function RegisterStudentView({ onNavigate }: Props) {
     .reduce((sum, p) => sum + (Number(p.price) || 0), 0)
   const displayAmount = paymentType === 'Half' ? Math.round(total / 2) : total
 
-  // ── Step 1: Create registration ──
-  const createRegistration = async (): Promise<string | null> => {
-    try {
-      const res = await adminCreateRegistration({
-        student: {
-          firstName: firstName.trim(),
-          lastName: lastName.trim(),
-          email: email.trim(),
-          phone: phone.trim(),
-          educationLevel,
-          fieldOfStudy: fieldOfStudy.trim() || undefined,
-        },
-        programs: selectedPrograms,
-        schedule,
-        paymentType,
-      })
-
-      if (res.success && res.data) {
-        const regId = String((res.data as Record<string, unknown>).id || (res.data as Record<string, unknown>)._id || (res.data as Record<string, unknown>).registrationId || '')
-        return regId || null
-      } else {
-        setError(res.message || t('registerStudent.error.register'))
-        return null
-      }
-    } catch {
-      setError(t('registerStudent.error.register'))
-      return null
-    }
-  }
-
   // ── Step 2a: Initialize Chapa payment ──
   const initChapaPayment = async (registrationId: string) => {
     setSubmitting(true)
     try {
-      const res = await fetch('http://localhost/Biniyam_PHP/api/v1/chapa/initialize', {
+      const res = await fetch(`${API_BASE}/chapa/initialize`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -190,7 +160,7 @@ export function RegisterStudentView({ onNavigate }: Props) {
 
     pollingRef.current = setInterval(async () => {
       try {
-        const res = await fetch(`http://localhost/Biniyam_PHP/api/v1/chapa/verify/${encodeURIComponent(txRef)}`, {
+        const res = await fetch(`${API_BASE}/chapa/verify/${encodeURIComponent(txRef)}`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('admin_access_token') || ''}` },
         })
         const body = await res.json()
@@ -256,7 +226,6 @@ export function RegisterStudentView({ onNavigate }: Props) {
     setLastName('')
     setEmail('')
     setPhone('')
-    setNationalIdImage('')
     setEducationLevel('')
     setFieldOfStudy('')
     setSelectedPrograms([])

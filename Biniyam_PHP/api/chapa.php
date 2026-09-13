@@ -260,7 +260,7 @@ function chapaInitialize(): void {
     // Generate tx_ref
     $txRef = 'beauty-' . base_convert(time(), 10, 36) . '-' . substr(md5(uniqid()), 0, 6);
 
-    $baseUrl    = getenv('API_BASE_URL') ?: 'http://localhost:8080/api/v1';
+    $baseUrl    = getenv('API_BASE_URL') ?: 'https://api.biniyambeautytraining.com.et/api/v1';
     $callbackUrl = "$baseUrl/chapa/callback";
     $programNames = implode(', ', array_column($programs, 'title'));
     $description  = preg_replace('/[^a-zA-Z0-9\-_. ]/', ' ', "Payment for $programNames");

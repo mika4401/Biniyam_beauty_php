@@ -26,11 +26,24 @@ if (file_exists(__DIR__ . '/.env')) {
 
 // ─── CORS Headers ────────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
-// Allow both frontend (5173) and admin (5174) during development
-// Match all localhost variants: localhost, 127.0.0.1, [::1]
+// Allow only known origins — production domains + localhost for local development
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (preg_match('#^https?://(localhost|127\.0\.0\.1|\[::1\]):(5173|5174)$#', $origin)) {
-    header("Access-Control-Allow-Origin: $origin");
+$allowedOriginPatterns = [
+        'http://www.biniyambeautytraining.com.et',
+        'http://biniyambeautytraining.com.et',
+        'http://admin.biniyambeautytraining.com.et',
+
+        'https://www.biniyambeautytraining.com.et',
+        'https://biniyambeautytraining.com.et',
+        'https://admin.biniyambeautytraining.com.et',
+
+    '#^https?://(localhost|127\.0\.0\.1|\[::1\]):(5173|5174)$#',
+];
+foreach ($allowedOriginPatterns as $pattern) {
+    if (preg_match($pattern, $origin)) {
+        header("Access-Control-Allow-Origin: $origin");
+        break;
+    }
 }
 header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, Cache-Control, Pragma');
